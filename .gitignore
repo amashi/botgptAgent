@@ -17,4 +17,6 @@ test.pdf
 bot_chatgpt copy.py
 conversational_old.py
 simple.pdf
+*.pdf
+*.docx
 llama_db.old_mashkanta/
