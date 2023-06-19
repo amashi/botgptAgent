@@ -4,7 +4,6 @@ import gradio as gr
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-from dotenv import load_dotenv
 from sklearn import externals
 import conversational_agent
 
@@ -31,9 +30,16 @@ print ("OPENAI_API_KEY",os.environ.get("OPENAI_API_KEY"))
 
 qa = conversational_agent.conversatioalAgentsChatGPT().getConversational()
 
+# def create_conversational():
+#     # externals (qa)
+#     qa = conversational_agent.conversatioalAgentsChatGPT().getConversational()
+
 def create_conversational():
     # externals (qa)
-    qa = conversational_agent.conversatioalAgentsChatGPT().getConversational()
+    qanew = conversational_agent.conversatioalAgentsChatGPT().getConversational()
+    qa=None
+    qa=qanew
+
 
 
 create_conversational()
@@ -52,31 +58,21 @@ def bot(history):
     history[-1][1] = res
     return history
 
+css = """
+.qhebrew textarea { direction: rtl;}
+"""
 
-with gr.Blocks() as demo:
-    
-    chatbot = gr.Chatbot([], elem_id="chatbot",
-                         label='Document GPT').style(height=750)
+with gr.Blocks(css=".gradio-container {background-color: white }", rtl=True) as demo:
     
     with gr.Row():
-        with gr.Column(scale=0.80):
-            txt = gr.Textbox(
-                show_label=False,
-                placeholder="Enter text and press enter",
-            ).style(container=False)
-        with gr.Column(scale=0.10):
-            submit_btn = gr.Button(
-                'Submit',
-                variant='primary'
-            )
-        with gr.Column(scale=0.10):
-            clear_btn = gr.Button(
-                'Clear',
-                variant='stop'
-            )
-            
-   
-            
+        with gr.Column(scale=0.90):
+            txt = gr.Textbox(show_label=False,placeholder="כתוב שאלה", container=False)
+        with gr.Column(scale=0.05):
+            submit_btn = gr.Button('שאל',variant='primary')
+        with gr.Column(scale=0.05):
+            clear_btn = gr.Button('נקה',variant='stop')
+
+    chatbot = gr.Chatbot([], elem_id="chatbot", label='מומחה משכנתאות', elem_classes='qhebrew', height=500)
 
     txt.submit(add_text, [chatbot, txt], [chatbot, txt]).then(
         bot, chatbot, chatbot
@@ -85,17 +81,11 @@ with gr.Blocks() as demo:
     submit_btn.click(add_text, [chatbot, txt], [chatbot, txt]).then(
         bot, chatbot, chatbot
     )
-    # create_conversational_btn.click(create_conversational, [CONDENSE_TEMPLATE_txt, QA_TEMPLATE_txt], [CONDENSE_TEMPLATE_txt, QA_TEMPLATE_txt]).then(
-    #     lambda: None, None, chatbot, queue=False
-    # ).then (
-    #     bot, chatbot, chatbot
-    # )
-
+   
     clear_btn.click(lambda: None, None, chatbot, queue=False).then(
         create_conversational
     )
 
-if __name__ == '__main__':
-    
+if __name__ == '__main__':    
     demo.queue(concurrency_count=3)
     demo.launch(share=True,server_name=os.environ.get("GRADIO_SERVER_NAME"),server_port=int(os.getenv("GRADIO_SERVER_PORT",8888)))

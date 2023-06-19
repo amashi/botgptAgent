@@ -78,17 +78,17 @@ mypy-extensions
 networkx
 nltk
 numpy
-nvidia-cublas-cu11
-nvidia-cuda-cupti-cu11
-nvidia-cuda-nvrtc-cu11
-nvidia-cuda-runtime-cu11
-nvidia-cudnn-cu11
-nvidia-cufft-cu11
-nvidia-curand-cu11
-nvidia-cusolver-cu11
-nvidia-cusparse-cu11
-nvidia-nccl-cu11
-nvidia-nvtx-cu11
+# nvidia-cublas-cu11
+# nvidia-cuda-cupti-cu11
+# nvidia-cuda-nvrtc-cu11
+# nvidia-cuda-runtime-cu11
+# nvidia-cudnn-cu11
+# nvidia-cufft-cu11
+# nvidia-curand-cu11
+# nvidia-cusolver-cu11
+# nvidia-cusparse-cu11
+# nvidia-nccl-cu11
+# nvidia-nvtx-cu11
 openai
 openapi-schema-pydantic
 orjson
@@ -152,7 +152,6 @@ torchvision
 tornado
 tqdm
 transformers
-triton
 Twisted
 typing-inspect
 typing_extensions

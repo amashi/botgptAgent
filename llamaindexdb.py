@@ -173,7 +173,7 @@ if __name__ == "__main__":
     
     
     cdb= LLamaindexdb()
-    cdb.create_db(path=os.getcwd()+'/mashkanta/')
+    cdb.create_db(path=os.getcwd()+'/traindata/')
     print("LLamaindexdb",cdb.checkdb())
 
     
